@@ -1,6 +1,6 @@
 <?php
 // Include the database class
-include_once 'Database.php';
+include_once '../../configs/Database.php';
 
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

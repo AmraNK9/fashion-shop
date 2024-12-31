@@ -1,18 +1,17 @@
 <?php
 // Include the database class
-include_once 'Database.php';
+include_once '../../configs/Database.php';
 
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Capture form data
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
+    $name = $_POST['firstName'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $terms = isset($_POST['terms']) ? 1 : 0;
 
     // Validate form data
-    if (!empty($firstName) && !empty($lastName) && !empty($email) && !empty($password) && $terms) {
+    if (!empty($name)  && !empty($email) && !empty($password) && $terms) {
         // Hash the password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
@@ -21,13 +20,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $conn = $database->getConnection();
 
         // Prepare an insert statement
-        $query = "INSERT INTO users (first_name, last_name, email, password) VALUES (:firstName, :lastName, :email, :password)";
+        $query = "INSERT INTO users (name, email, password) VALUES (:name , :email, :password)";
         
         $stmt = $conn->prepare($query);
 
         // Bind parameters
-        $stmt->bindParam(':firstName', $firstName);
-        $stmt->bindParam(':lastName', $lastName);
+        $stmt->bindParam(':name', $name);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':password', $hashedPassword);
 
@@ -105,13 +103,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h5 class="form-title">Create New Account</h5>
             <form method="POST" action="">
               <div class="mb-3">
-                <label for="firstName" class="form-label">First Name</label>
+                <label for="firstName" class="form-label">Name</label>
                 <input type="text" class="form-control" id="firstName" name="firstName" required>
               </div>
-              <div class="mb-3">
-                <label for="lastName" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="lastName" name="lastName" required>
-              </div>
+        
               <div class="mb-3">
                 <label for="email" class="form-label">Email Address</label>
                 <input type="email" class="form-control" id="email" name="email" required>
