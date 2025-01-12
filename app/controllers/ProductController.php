@@ -5,6 +5,10 @@ class ProductController {
     public function index() {
         $productModel = new Product();
         $products = $productModel->getAllProducts();
+        // echo $products;
+        // for ($i=0; $i < ; $i++) { 
+        //     # code...
+        // }
         include __DIR__ . "/../../views/products/index.php";
     }
 

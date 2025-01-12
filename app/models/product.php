@@ -31,18 +31,18 @@ class Product {
     // Create a new product
     public function createProduct($data) {
         $query = "INSERT INTO $this->tableName (name, description, price, category_id, gender_id, size_id, img, stock_quantity) 
-                  VALUES (:name, :description, :price, :category_id, :gender_id, :size_id, :img, :stock_quantity)";
+                  VALUES (:product_name, :product_description, :price, :category_id, :gender_id, :size_id, :img, :stock_quantity)";
         $stmt = $this->conn->prepare($query);
 
         // Bind parameters
-        $stmt->bindParam(':name', $data['name']);
-        $stmt->bindParam(':description', $data['description']);
+        $stmt->bindParam(':product_name', $data['name']);
+        $stmt->bindParam(':product_description', $data['description']);
         $stmt->bindParam(':price', $data['price']);
         $stmt->bindParam(':category_id', $data['category_id'], PDO::PARAM_INT);
         $stmt->bindParam(':gender_id', $data['gender_id'], PDO::PARAM_INT);
         $stmt->bindParam(':size_id', $data['size_id'], PDO::PARAM_INT);
-        $stmt->bindParam(':img', $data['img']);
-        $stmt->bindParam(':stock_quantity', $data['stock_quantity'], PDO::PARAM_INT);
+        $stmt->bindParam(':img', $data['image']);
+        $stmt->bindParam(':stock_quantity', $data['quantity'], PDO::PARAM_INT);
 
         // Execute and return result
         return $stmt->execute();
