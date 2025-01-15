@@ -113,7 +113,10 @@
           </div>
           <div class="mt-4">
             <button class="btn btn-primary">Add to Cart</button>
+            <a href="http://localhost/fashion_shop/views/cart/checkout.php">
             <button class="btn btn-success ms-2">Checkout</button>
+
+            </a>
           </div>
         </div>
     
@@ -225,8 +228,11 @@
     // Add to Cart button click event
     addToCartButton.addEventListener("click", function () {
       const productId = "<?php echo $product['product_id']; ?>";
+      const productName = "<?php echo $product['name'] ?>"
+      const price = "<?php echo $product['price'] ?>"
+      const image = "<?php echo $product['img'] ?>"
       const quantity = document.querySelector("input[type='number']").value;
-
+      console.log("quantity ..", quantity)
       fetch("http://localhost/fashion_shop/cart", {
         method: "POST",
         headers: {
@@ -235,14 +241,17 @@
         body: JSON.stringify({
           action: "add",
           productId: productId,
-          quantity: parseInt(quantity),
+          quantity: quantity,
           size: selectedSize,
+          image:image,
+          name:productName,
+          price:price
         }),
       })
         .then((response) => response.json())
         .then((data) => {
           alert(data.message);
-        })
+        })  
         // .catch((error) => {
         //     console.log(error)
         //   console.error("Error:", error);

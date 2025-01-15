@@ -61,10 +61,10 @@ h1, h2 {
 }
 
 .product-image {
-    width: 200;
-    height: 200;
-    display: block;
-    object-fit: cover;
+    width: 300px;
+    /* height: 100; */
+    /* display: block; */
+    /* object-fit: cover; */
 }
 
 .product-info {

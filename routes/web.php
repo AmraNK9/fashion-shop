@@ -21,16 +21,27 @@ switch ($baseRoute) {
         break;
 
     case "cart":
+        $requestBody = file_get_contents('php://input');
+        $data = json_decode($requestBody, true);
+        if($data == null){
+            include __DIR__ . "/../views/cart/index.php";
+            return;
+        }
+        $action = $data['action'];
+        $productId = $data['productId'];
+        $quantity = $data['quantity'] ?? 1;
+        $size = $data['size'] ?? 'M';
+        $price = $data['price'] ?? 0;
+        $name = $data['name'] ?? '' ;
+        $image = $data['image']?? '';
+        // echo "reach";
 
-        $action = $_POST['action'];
-        $productId = $_POST['product_id'];
-        $quantity = $_POST['quantity'] ?? 1;
-        $size = $_POST['size'] ?? 'M';
-        echo "hello";
+        
+        
     
         switch ($action) {
             case 'add':
-                $cartController->addToCart($productId, (int)$quantity,$size);
+                $cartController->addToCart($productId, (int)$quantity,$size,$price,$name,$image);
                 break;
             case 'remove':
                 $cartController->removeFromCart($productId);
@@ -38,6 +49,7 @@ switch ($baseRoute) {
             case 'view':
                 $cartController->getCart();
                 break;
+            
             default:
                 echo json_encode(['status' => 'error', 'message' => 'Invalid action.']);
                 break;

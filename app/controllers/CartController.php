@@ -13,20 +13,25 @@ class CartController
         }
     }
 
-    public function addToCart($productId, $quantity, $size)
+    public function addToCart($productId, $quantity, $size, $price,$name,$img)
     {
         // Check if the product is already in the cart
         if (isset($_SESSION['cart'][$productId])) {
+             
             $_SESSION['cart'][$productId]['quantity'] += $quantity;
             $_SESSION['cart'][$productId]['size'] = $size;
         } else {
             // Add new product to the cart
+
             $_SESSION['cart'][$productId] = [
                 'quantity' => $quantity,
-                'size' => $size
+                'size' => $size,
+                'price' => $price,
+                'name' => $name,
+                'image' => $img
             ];
         }
-        echo json_encode(['status' => 'success', 'message' => 'Product added to cart.']);
+        echo json_encode(['status' => 'success', 'message' => 'Product added to cart. '.$quantity]);
     }
 
     public function removeFromCart($productId)
@@ -38,7 +43,6 @@ class CartController
             echo json_encode(['status' => 'error', 'message' => 'Product not found in cart.']);
         }
     }
-
     public function getCart()
     {
         echo json_encode(['status' => 'success', 'cart' => $_SESSION['cart']]);
