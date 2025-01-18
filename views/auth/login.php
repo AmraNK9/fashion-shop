@@ -1,7 +1,11 @@
 <?php
 // Include the database class
 include_once '../../configs/Database.php';
+include_once '../../app/controllers/AuthController.php';
 
+
+
+$authController = new AuthController();
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Capture form data
@@ -9,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     // Validate form data
-    if (!empty($email) && !empty($password)) {
+    if (!empty($email) && !empty($password)) { 
         // Create a new database connection
         $database = new Database();
         $conn = $database->getConnection();
@@ -23,9 +27,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt->execute()) {
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+            // var_dump($user);
             // Verify password
             if ($user && password_verify($password, $user['password'])) {
-                echo "<div class='alert alert-success'>Login successful! Welcome, " . htmlspecialchars($user['first_name']) . ".</div>";
+            $authController->storeUser($user['user_id'],$user['name'],$user['role'],$user['email']);
+            header('Location:/fashion_shop');
+
+                echo "<div class='alert alert-success'>Login successful! Welcome, " . htmlspecialchars(string: $user['name']) . ".</div>";
+
             } else {
                 echo "<div class='alert alert-danger'>Invalid email or password.</div>";
             }

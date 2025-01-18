@@ -1,6 +1,8 @@
 <?php
 // Include the database class
 include_once '../../configs/Database.php';
+include_once '../../app/controllers/AuthController.php';
+$authController = new AuthController();
 
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -31,7 +33,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Execute the query
         if ($stmt->execute()) {
-            echo "<div class='alert alert-success'>Account created successfully!</div>";
+          $userId = $conn->lastInsertId();
+
+          // Store user info in the session
+          $authController->storeUser($userId, $name, $email, 'user'); // Assuming role is 'user' for new registrations
+
+          // Redirect to home page
+          header("Location: http://localhost/fashion_shop");
+          exit;
         } else {
             echo "<div class='alert alert-danger'>Error: Unable to create account. Please try again.</div>";
         }

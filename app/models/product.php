@@ -28,6 +28,16 @@ class Product {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    
+    // Fetch products by categoryId ID
+    public function getProductsByCategoryId($id) {
+        $query = "SELECT * FROM $this->tableName WHERE category_id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // Create a new product
     public function createProduct($data) {
         $query = "INSERT INTO $this->tableName (name, description, price, category_id, gender_id, size_id, img, stock_quantity) 

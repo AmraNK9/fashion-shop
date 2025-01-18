@@ -95,31 +95,66 @@
     .search-box.visible {
       display: flex;
     }
+    .Logo .k-highlight {
+      font-size: 36px; /* Larger font for "K" */
+      font-family: 'Georgia', serif;
+      color: #000; /* Black color for "K" */
+      margin-right: 5px;
+    }
+
+    .Logo .rest {
+      font-size: 24px; /* Smaller font for "riest" */
+      font-family: 'Arial', sans-serif;
+      color: #000; /* Black color for "riest" */
+      letter-spacing: 1px; /* Add spacing between letters */
+    }
+    .space{
+        height: 64px;
+    }
   </style>
 </head>
 <body>
+<?php $AuthController2 = new AuthController() ?>
   <header class="header">
-    <div class="logo fw-bold fs-4">Logo</div>
-
-    <nav class="nav-links" id="navLinks">
-      <a href="http://localhost/fashion_shop">Shop</a>
-      <a href="#">Our Story</a>
-      <a href="#">Blog</a>
-      <a href="#">Contact Us</a>
-    </nav>
-
-    <div class="icons">
-      <i class="fas fa-search" id="searchIcon"></i>
-      <i class="far fa-heart"></i>
-      <a href="http://localhost/fashion_shop/cart">
-        <i class="fas fa-shopping-bag"></i>
-      </a>
-      <a href="http://localhost/fashion_shop/views/auth/login.php"><button class="login-button">Login</button></a>
+    <!-- Logo -->
+    <div class="Logo">
+      <span class="k-highlight">K</span>
+      <span class="rest">riest</span>
     </div>
-
+    <nav class="nav-links" id="navLinks"> 
+      <a href="http://localhost/fashion_shop/">Home</a>
+      <a href="http://localhost/fashion_shop/products">Shop</a>
+      <a href="http://localhost/fashion_shop/dms/aboutUs.php">Our Story</a>
+      <a href="http://localhost/fashion_shop/dms/blog.php">Blog</a>
+      <a href="http://localhost/fashion_shop/dms/contact.php">Contact Us</a>
+    </nav>
     <div class="search-box" id="searchBox">
       <input type="text" placeholder="Search...">
     </div>
+    <div class="icons">
+      <i class="fas fa-search" id="searchIcon"></i>
+      <!-- <i class="far fa-heart"></i> -->
+      <a href="http://localhost/fashion_shop/cart">
+        <i class="fas fa-shopping-bag"></i>
+      </a>
+      <?php if ($AuthController2->isLoggedIn()): ?>
+        <a href="http://localhost/fashion_shop/profile">
+
+        <!-- <div class="profile"> -->
+            <i class="fa-solid fa-user"></i>
+            <!-- <p>name</p> -->
+
+        <!-- </div> -->
+        </a>
+
+
+      <?php else: ?>
+        <a href="http://localhost/fashion_shop/views/auth/login.php"><button class="login-button">Login</button></a>
+      <?php endif; ?>
+    </div>
+    <div class="space"></div>
+
+
   </header>
 
   <script>
@@ -133,6 +168,6 @@
     });
   </script>
 
-  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

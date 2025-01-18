@@ -10,7 +10,7 @@ class CartController
         }
         if (!isset($_SESSION['cart'])) {
             $_SESSION['cart'] = [];
-        }
+        }   
     }
 
     public function addToCart($productId, $quantity, $size, $price,$name,$img)
@@ -45,6 +45,6 @@ class CartController
     }
     public function getCart()
     {
-        echo json_encode(['status' => 'success', 'cart' => $_SESSION['cart']]);
+        echo json_encode(value: ['status' => 'success', 'cart' => $_SESSION['cart']]);
     }
 }

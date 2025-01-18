@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../../app/controllers/CartController.php';
 
 $cartController = new CartController();
-$cart = $_SESSION['cart'] ?? [];
+$cart = $_SESSION['cart'] ;
 
 // Calculate subtotal and total
 $subtotal = 0;
@@ -95,10 +95,14 @@ $grandTotal = $total + $deliveryCharge;
     .btn-checkout:hover {
       background-color: #218838;
     }
+    .space{
+      height: 64px;
+    }
   </style>
 </head>
 <body>
   <?php include __DIR__.'/../layouts/header.php' ?>
+  <div class="space"></div>
   <div class="container mt-5">
     <h1 class="mb-4">Checkout</h1>
     <?php if (empty($cart)): ?>
@@ -180,6 +184,7 @@ $grandTotal = $total + $deliveryCharge;
       </div>
     <?php endif; ?>
   </div>
+  <div class="space"></div>
   <?php include __DIR__.'/../layouts/footer.php' ?>
   <script>
       document.addEventListener("DOMContentLoaded", function () {
