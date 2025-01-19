@@ -28,7 +28,8 @@ class CartController
                 'size' => $size,
                 'price' => $price,
                 'name' => $name,
-                'image' => $img
+                'image' => $img,
+                'product_id' => $productId
             ];
         }
         echo json_encode(['status' => 'success', 'message' => 'Product added to cart. '.$quantity]);

@@ -43,7 +43,6 @@ class Product {
         $query = "INSERT INTO $this->tableName (name, description, price, category_id, gender_id, size_id, img, stock_quantity) 
                   VALUES (:product_name, :product_description, :price, :category_id, :gender_id, :size_id, :img, :stock_quantity)";
         $stmt = $this->conn->prepare($query);
-
         // Bind parameters
         $stmt->bindParam(':product_name', $data['name']);
         $stmt->bindParam(':product_description', $data['description']);
@@ -66,13 +65,14 @@ class Product {
                       img = :img, stock_quantity = :stock_quantity
                   WHERE product_id = :id";
         $stmt = $this->conn->prepare($query);
+        $category_id = 1;
 
         // Bind parameters
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->bindParam(':name', $data['name']);
         $stmt->bindParam(':description', $data['description']);
         $stmt->bindParam(':price', $data['price']);
-        $stmt->bindParam(':category_id', 1, PDO::PARAM_INT);
+        $stmt->bindParam(':category_id', $category_id, PDO::PARAM_INT);
         $stmt->bindParam(':gender_id', $data['gender_id'], PDO::PARAM_INT);
         $stmt->bindParam(':size_id', $data['size_id'], PDO::PARAM_INT);
         $stmt->bindParam(':img', $data['img']);

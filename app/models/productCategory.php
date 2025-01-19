@@ -35,7 +35,7 @@ class Category {
         // Bind parameters
         $stmt->bindParam(':name', $data['name']);
         $stmt->bindParam(':description', $data['description']);
-
+        // $stmt->bindParam('id',1);
         // Execute and return result
         return $stmt->execute();
     }

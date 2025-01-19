@@ -79,7 +79,6 @@
             <span class="star">&#9733;</span>
             <span class="star">&#9733;</span>
             <span class="star">&#9734;</span>
-
           </div>
         </body>
         <div>
@@ -95,16 +94,20 @@
         </div>
 
         <div class="mt-3">
-          <label>Quantity: </label>
+          <label>Quantity: <?php echo $product['stock_quantity'] ?></label>
           <input type="number" class="form-control" value="1" style="width: 100px" />
         </div>
-        <div class="mt-4">
-          <button class="btn btn-primary">Add to Cart</button>
-          <a href="http://localhost/fashion_shop/views/cart/checkout.php">
-            <button class="btn btn-success ms-2">Checkout</button>
+        <?php if (!$product['stock_quantity'] <= 0): ?>
+          <div class="mt-4">
+            <button class="btn btn-primary">Add to Cart</button>
+            <a href="http://localhost/fashion_shop/views/cart/checkout.php">
+              <button class="btn btn-success ms-2">Checkout</button>
 
-          </a>
-        </div>
+            </a>
+          </div>
+        <?php else: ?>
+          <span class="text-danger">Out of stock</span>
+        <?php endif; ?>
       </div>
 
     </div>
@@ -235,19 +238,19 @@
             price: price
           }),
         })
-          .then((response)=> {
+          .then((response) => {
             console.log(response);
-            alert(quantity +" products added to cart");
+            alert(quantity + " products added to cart");
           }
-        
-        
-        
-        )
-         
-        .catch((error) => {
+
+
+
+          )
+
+          .catch((error) => {
             console.log(error)
-          // console.error("Error:", error);
-        }); 
+            // console.error("Error:", error);
+          });
       });
     });
 

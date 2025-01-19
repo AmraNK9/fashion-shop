@@ -17,7 +17,7 @@ class AdminController
             $description = htmlspecialchars($_POST['product_description']);
             $price = floatval($_POST['product_price']);
             $quantity = floatval($_POST['product_quantity']);
-
+            $category_id = $_POST['category_id'];
             $imageName = null;
 
             // Handle image upload
@@ -42,7 +42,7 @@ class AdminController
 
             // Save the product in the database
             $productModel = new Product();
-            $data =  array("name"=> $name, "price"=>$price, "description"=>$description,"image"=>$imageName,"quantity"=>$quantity);
+            $data =  array("name"=> $name, "price"=>$price, "description"=>$description,"image"=>$imageName,"quantity"=>$quantity,"category_id"=>$category_id);
             $productModel->createProduct($data);
 
             // Redirect to the admin dashboard

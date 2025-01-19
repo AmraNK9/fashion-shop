@@ -1,6 +1,8 @@
 <?php
 
 require_once __DIR__ . '/../../app/models/OrderModel.php';
+require_once __DIR__ . '/../../app/models/product.php';
+
 
 class CheckoutController
 {
@@ -47,9 +49,9 @@ class CheckoutController
         unset($_SESSION['cart']);
 
         // Redirect to order success page
-        $_SESSION['success'] = "Order placed successfully! Your Order ID is #$orderId.";
-        header("Location: /fashion_shop/products");
-        exit();
+        // $_SESSION['success'] = "Order placed successfully! Your Order ID is #$orderId.";
+        // header("Location: /fashion_shop/products");
+        // exit();
     }
 
     private function calculateTotal($cart)

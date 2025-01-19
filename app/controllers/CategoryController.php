@@ -13,5 +13,53 @@ class CategoryController {
         // include __DIR__ . "/../../views/products/index.php";
         return $category;
     }
+
+
+
+
+
+
+    public function getAllCategories(){
+        $categoryModel = new Category();
+
+
+        return $categoryModel->getAllCategory();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 ?>

@@ -24,20 +24,20 @@ class OrderModel
         $stmt->bindParam('total',$orderData['total']);
 
         $stmt->execute();
-        $orderId = $this->conn->lastInsertId()    ;
+        $orderId = $this->conn->lastInsertId();
 
         // Insert order items into `order_items` table
         foreach ($orderData['items'] as $productId => $item) {
             $stmt = $this->conn->prepare("INSERT INTO order_item (order_id, product_id, quantity, item_price) VALUES (:order_id, :product_id, :quantity, :price)");
           
-
             $stmt->bindParam('order_id',$orderId);
             $stmt->bindParam('product_id',$productId);
             $stmt->bindParam('quantity',$item['quantity']);
             $stmt->bindParam('price',$item['price']);
 
-            
-            
+            $query = 'UPDATE fashion_product SET stock_quantity = stock_quantity - '.$item['quantity'].' WHERE product_id = '.$productId.';';
+            $this->conn->exec($query);
+
             $stmt->execute();
         }
 
