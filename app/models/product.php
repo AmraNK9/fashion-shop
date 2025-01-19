@@ -72,7 +72,7 @@ class Product {
         $stmt->bindParam(':name', $data['name']);
         $stmt->bindParam(':description', $data['description']);
         $stmt->bindParam(':price', $data['price']);
-        $stmt->bindParam(':category_id', $data['category_id'], PDO::PARAM_INT);
+        $stmt->bindParam(':category_id', 1, PDO::PARAM_INT);
         $stmt->bindParam(':gender_id', $data['gender_id'], PDO::PARAM_INT);
         $stmt->bindParam(':size_id', $data['size_id'], PDO::PARAM_INT);
         $stmt->bindParam(':img', $data['img']);

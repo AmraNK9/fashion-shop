@@ -75,7 +75,7 @@ form button:hover {
 
     <main>
         <section class="form-section">
-            <form action="store" method="POST" enctype="multipart/form-data">
+            <form action="http://localhost/fashion_shop/admin/store" method="POST" enctype="multipart/form-data">
                 <label for="product-name">Product Name:</label>
                 <input type="text" id="product-name" name="product_name" required>
 

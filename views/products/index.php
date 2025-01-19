@@ -299,6 +299,7 @@
 
         <section class="products section container">
             <?php if(isset($isfromCategoryById) && $isfromCategoryById == true) : ?>
+                
             <h3 class="section_title">Our <span>Product</span> For <?php echo $categoryControler->show($categoryId)['category_name'] ?></h3>
 
             <?php else: ?>
@@ -331,9 +332,11 @@
                                     </div>
 
                                     <div class="product_content">
+                                        <?php if(isset($product['category_id'])) :?>
                                         <span
                                             class="product_category"><?php echo $categoryControler->show($product['category_id'])['category_name'] ?>
                                         </span>
+                                        <?php endif; ?>
                                         <a href="/fashion_shop/product/<?php echo urlencode($product['product_id']); ?>">
                                             <h3 class="product_title"><?php echo $product['name']; ?></h3>
                                         </a>
