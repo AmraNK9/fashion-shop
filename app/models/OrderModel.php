@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../database/Database.php';
+require_once __DIR__ . '/../../configs/Database.php';
 
 class OrderModel
 {
@@ -16,27 +16,28 @@ class OrderModel
     {
 
         // Insert order details into `orders` table
-        $stmt = $this->conn->prepare("INSERT INTO orders (user_id, address, payment_method, total) VALUES (?, ?, ?, ?)");
-        $stmt->bindParam(
-            "issd",
-            $orderData['user_id'],
-            $orderData['address'],
-            $orderData['payment_method'],
-            $orderData['total']
-        );
+        $stmt = $this->conn->prepare("INSERT INTO orders (user_id, shipping_address, total_amount) VALUES (:id, :address, :total)");
+     
+        $stmt->bindParam('id',$orderData['user_id']);
+        $stmt->bindParam(':address',$orderData['address']);
+        // $stmt->bindParam('payment_method',$orderData['payment_method']);
+        $stmt->bindParam('total',$orderData['total']);
+
         $stmt->execute();
-        $orderId = $stmt->insert_id;
+        $orderId = $this->conn->lastInsertId()    ;
 
         // Insert order items into `order_items` table
         foreach ($orderData['items'] as $productId => $item) {
-            $stmt = $this->conn->prepare("INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)");
-            $stmt->bindParam(
-                "iiid",
-                $orderId,
-                $productId,
-                $item['quantity'],
-                $item['price']
-            );
+            $stmt = $this->conn->prepare("INSERT INTO order_item (order_id, product_id, quantity, item_price) VALUES (:order_id, :product_id, :quantity, :price)");
+          
+
+            $stmt->bindParam('order_id',$orderId);
+            $stmt->bindParam('product_id',$productId);
+            $stmt->bindParam('quantity',$item['quantity']);
+            $stmt->bindParam('price',$item['price']);
+
+            
+            
             $stmt->execute();
         }
 

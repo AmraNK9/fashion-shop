@@ -114,6 +114,7 @@
   </style>
 </head>
 <body>
+  <?php require_once __DIR__.'/../../app/controllers/AuthController.php'; ?>
 <?php $AuthController2 = new AuthController() ?>
   <header class="header">
     <!-- Logo -->

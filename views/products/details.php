@@ -213,6 +213,7 @@
 
       // Add to Cart button click event
       addToCartButton.addEventListener("click", function () {
+        console.log("add to cart click")
         const productId = "<?php echo $product['product_id']; ?>";
         const productName = "<?php echo $product['name'] ?>"
         const price = "<?php echo $product['price'] ?>"
@@ -234,14 +235,19 @@
             price: price
           }),
         })
-          .then((response) => response.json())
-          .then((data) => {
+          .then((response)=> {
+            console.log(response);
             alert(quantity +" products added to cart");
-          })
-        // .catch((error) => {
-        //     console.log(error)
-        //   console.error("Error:", error);
-        // }); 
+          }
+        
+        
+        
+        )
+         
+        .catch((error) => {
+            console.log(error)
+          // console.error("Error:", error);
+        }); 
       });
     });
 

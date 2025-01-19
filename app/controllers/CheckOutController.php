@@ -6,7 +6,9 @@ class CheckoutController
 {
     public function handleCheckout()
     {
-        session_start();
+        if(!isset($_SESSION)){
+            session_start();
+        }
 
         // Ensure the cart isn't empty
         if (empty($_SESSION['cart'])) {
@@ -46,7 +48,7 @@ class CheckoutController
 
         // Redirect to order success page
         $_SESSION['success'] = "Order placed successfully! Your Order ID is #$orderId.";
-        header("Location: /order-success");
+        header("Location: /fashion_shop/products");
         exit();
     }
 

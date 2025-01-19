@@ -6,7 +6,7 @@ class AdminController
         // echo "Welcome to the Admin Dashboard.";
         // Render admin dashboard view
 
-        include __DIR__ . "/../../views/admin/index.php";
+        include __DIR__ . "/../../views/admin/dashboard.php";
 
     }
 

@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/../../app/controllers/CartController.php';
+// require_once __DIR__ . '/../../app/controllers/CartController.php';
 
-$cartController = new CartController();
+// $cartController = new CartController();
 $cart = $_SESSION['cart'] ;
 
 // Calculate subtotal and total
