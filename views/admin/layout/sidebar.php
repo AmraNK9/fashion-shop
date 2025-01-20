@@ -8,17 +8,17 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white" href="users.php">
+                <a class="nav-link text-white" href="http://localhost/fashion_shop/views/admin/users.php">
                     <i class="bi bi-people-fill me-2"></i> Users
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white" href="orders.php">
+                <a class="nav-link text-white" href="http://localhost/fashion_shop/views/admin/orders.php">
                     <i class="bi bi-cart-fill me-2"></i> Orders
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white" href="categories.php">
+                <a class="nav-link text-white" href="http://localhost/fashion_shop/views/admin/categories.php">
                     <i class="bi bi-tags-fill me-2"></i> Categories
                 </a>
             </li>

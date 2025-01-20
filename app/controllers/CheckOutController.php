@@ -8,7 +8,7 @@ class CheckoutController
 {
     public function handleCheckout()
     {
-        if(!isset($_SESSION)){
+        if (!isset($_SESSION)) {
             session_start();
         }
 
@@ -46,6 +46,21 @@ class CheckoutController
         ]);
 
         // Clear cart after order is placed
+
+
+        if ($orderId) {
+            $orderInfo = [
+                'user_id' => $_SESSION['user_id'], // Assuming logged-in user
+                'address' => $address,
+                'payment_method' => $paymentMethod,
+                'items' => $_SESSION['cart'],
+                'total' => $this->calculateTotal($_SESSION['cart']),
+                'status' => "Pending"
+
+            ];
+            include __DIR__ . "/../../Orderdetail/orderdetail.php";
+        }
+
         unset($_SESSION['cart']);
 
         // Redirect to order success page

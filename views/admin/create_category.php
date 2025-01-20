@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = "Category name is required.";
     } else {
         // Insert into categories table
-        $query = "INSERT INTO categories (category_name, description) VALUES (:category_name, :description)";
+        $query = "INSERT INTO category (category_name, description) VALUES (:category_name, :description)";
         $stmt = $conn->prepare($query);
 
         // Bind parameters
@@ -31,6 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Execute the query
         if ($stmt->execute()) {
             $success = "Category created successfully!";
+            header("http://localhost/fashion_shop/admin/categories.php");
+            exit;
         } else {
             $error = "Error creating category.";
         }
@@ -38,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 // Fetch all categories
-$query = "SELECT * FROM categories ORDER BY category_id DESC";
+$query = "SELECT * FROM category ORDER BY category_id DESC";
 $stmt = $conn->prepare($query);
 $stmt->execute();
 $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);

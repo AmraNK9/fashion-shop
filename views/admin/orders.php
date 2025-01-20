@@ -37,8 +37,8 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <td><?php echo ucfirst($order['status']); ?></td>
                     <td><?php echo $order['order_date']; ?></td>
                     <td>
-                        <a href="edit_order.php?id=<?php echo $order['order_id']; ?>" class="btn btn-primary btn-sm">Edit</a>
-                        <a href="delete_order.php?id=<?php echo $order['order_id']; ?>" class="btn btn-danger btn-sm">Delete</a>
+                        <a href="http://localhost/fashion_shop/admin_order/<?php echo $order['order_id'] ?>" class="btn btn-primary btn-sm">View</a>
+                        <!-- <a href="delete_order.php?id=<?php echo $order['order_id']; ?>" class="btn btn-danger btn-sm">Delete</a> -->
                     </td>
                 </tr>
             <?php endforeach; ?>

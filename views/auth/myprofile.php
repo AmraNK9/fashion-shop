@@ -339,6 +339,7 @@
     </div>
     </div>
 
+    <?php include __DIR__.'/../cart/orderHistory.php' ?>
     <script>
         function previewImage(event) {
             const file = event.target.files[0];

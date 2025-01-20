@@ -46,7 +46,7 @@ class AdminController
             $productModel->createProduct($data);
 
             // Redirect to the admin dashboard
-            header("Location: /fashion_shop/admin");
+            header("Location: /fashion_shop/views/admin/products.php");
             exit;
         }
     }

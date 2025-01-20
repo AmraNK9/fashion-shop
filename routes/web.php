@@ -6,6 +6,8 @@ require_once __DIR__ . '/../app/controllers/CategoryController.php';
 require_once __DIR__ . '/../app/controllers/AuthController.php';
 require_once __DIR__ . '/../app/controllers/SalesController.php';
 require_once __DIR__ . '/../app/controllers/CheckOutController.php';
+require_once __DIR__ . '/../app/controllers/OrderController.php';
+
 
 
 
@@ -19,6 +21,8 @@ $categoryController = new CategoryController();
 $authController = new AuthController();
 $salesController = new SalesController();
 $checkoutController = new CheckoutController();
+$orderController = new OrderController();
+
 
 $route = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 
@@ -95,6 +99,43 @@ switch ($baseRoute) {
             exit;
         }
         break;
+
+    case 'order':
+        // Show a specific product if ID is provided
+        if ($subRoute !== null) {
+            $orderController->showOrderDetail($subRoute);
+        } else {
+            // Redirect to the product list if no ID is provided
+            header("Location:");
+            exit;
+        }
+        break;
+
+    case 'admin_order':
+        // Show a specific product if ID is provided
+        if ($subRoute !== null) {
+            $orderController->getOrderDetail($subRoute);
+        } else {
+            // Redirect to the product list if no ID is provided
+            header("Location:");
+            exit;
+        }
+        break;
+    case 'comfirm_order':
+        // Show a specific product if ID is provided
+        if ($subRoute !== null) {
+            $orderController->comfirmOrder($subRoute);
+        } else {
+            // Redirect to the product list if no ID is provided
+            header("Location:");
+            exit;
+        }
+        break;
+
+
+
+
+
 
 
 
