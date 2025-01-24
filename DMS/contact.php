@@ -1,7 +1,6 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,6 +48,7 @@
         width: 90%;
         min-height: auto;
       }
+
       .contact-image {
         height: 200px;
       }
@@ -77,8 +77,10 @@
     .contact-form .form-control {
       font-size: 14px;
       padding: 10px;
-      border-radius: 10px; /* Border-radius for the input and textarea boxes */
-      border: 2px solid black; /* Solid black border for the input and textarea boxes */
+      border-radius: 10px;
+      /* Border-radius for the input and textarea boxes */
+      border: 2px solid black;
+      /* Solid black border for the input and textarea boxes */
     }
 
     .contact-form textarea {
@@ -91,42 +93,92 @@
     }
   </style>
 </head>
+
 <body>
   <?php ini_set('display_errors', '0');  // Disable error display
-?>
-    <?php include 'header.php'; ?>
-    <div class="contact-container">
-        <div class="contact-card">
-            <div class="contact-image"></div>
-            <div class="contact-form">
-                <h3 class="fw-bold mb-4">Contact Us</h3>
-                <form method="POST" action="">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Your Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="phone" class="form-label">Your Phone</label>
-                        <input type="text" class="form-control" id="phone" nmae="phone" placeholder="Enter your phone number"required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Your Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email"required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="address" class="form-label">Your Address</label>
-                        <input type="text" class="form-control" id="address" name="address"placeholder="Enter your address"required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="message" class="form-label">Your Message</label>
-                        <textarea class="form-control" id="message" rows="3" name="message" placeholder="Write your message"required ></textarea>
-                    </div>
-                    <button type="submit" class="btn w-100 bg-black text-white">Send Message</button>
-                </form>
-            </div>
-        </div>
+  ?>
+  <?php include 'header.php'; ?>
+  <?php
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Sanitize and validate form data
+    $name = isset($_POST['name']) ? htmlspecialchars(trim($_POST['name'])) : '';
+    $phone = isset($_POST['phone']) ? htmlspecialchars(trim($_POST['phone'])) : '';
+    $email = isset($_POST['email']) ? htmlspecialchars(trim($_POST['email'])) : '';
+    $address = isset($_POST['address']) ? htmlspecialchars(trim($_POST['address'])) : '';
+    $message = isset($_POST['message']) ? htmlspecialchars(trim($_POST['message'])) : '';
+
+    // Validate fields
+    if (empty($name) || empty($phone) || empty($email) || empty($address) || empty($message)) {
+      echo "All fields are required!";
+    } else {
+      try {
+        // Create a new database connection
+        $database = new Database();
+        $conn = $database->getConnection();
+
+        // Prepare the SQL query
+        $query = "INSERT INTO feedback (name, phone, email, address, message, created_at) 
+                          VALUES (:name, :phone, :email, :address, :message, :created_at)";
+
+        $stmt = $conn->prepare($query);
+
+        // Bind the form data to the query
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':phone', $phone);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':address', $address);
+        $stmt->bindParam(':message', $message);
+        $created_at = date('Y-m-d H:i:s'); // Get current timestamp
+        $stmt->bindParam(':created_at', $created_at);
+
+        // Execute the query
+        if ($stmt->execute()) {
+          echo "Your feedback has been submitted successfully!";
+        } else {
+          echo "Failed to submit feedback. Please try again.";
+        }
+      } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+      }
+    }
+  }
+  ?>
+  <div class="contact-container">
+    <div class="contact-card">
+      <div class="contact-image"></div>
+      <div class="contact-form">
+        <h3 class="fw-bold mb-4">Contact Us</h3>
+        <form method="POST" action="">
+          <div class="mb-3">
+            <label for="name" class="form-label">Your Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+          </div>
+          <div class="mb-3">
+            <label for="phone" class="form-label">Your Phone</label>
+            <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter your phone number"
+              required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Your Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+          </div>
+          <div class="mb-3">
+            <label for="address" class="form-label">Your Address</label>
+            <input type="text" class="form-control" id="address" name="address" placeholder="Enter your address"
+              required>
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">Your Message</label>
+            <textarea class="form-control" id="message" rows="3" name="message" placeholder="Write your message"
+              required></textarea>
+          </div>
+          <button type="submit" class="btn w-100 bg-black text-white">Send Message</button>
+        </form>
+      </div>
     </div>
-    <?php include 'footer.php'; ?>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </div>
+  <?php include 'footer.php'; ?>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

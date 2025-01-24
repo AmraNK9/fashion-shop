@@ -1,4 +1,6 @@
 <?php
+        include_once __DIR__.'/../configs/database.php';
+
 require_once __DIR__ . '/../app/controllers/ProductController.php';
 require_once __DIR__ . '/../app/controllers/AdminController.php';
 require_once __DIR__ . '/../app/controllers/CartController.php';
@@ -37,6 +39,51 @@ switch ($baseRoute) {
     case 'products':
         // echo 'reach';
         $productController->index();
+    case 'sent_contact_us':
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Sanitize and validate form data
+        $name = isset($_POST['name']) ? htmlspecialchars(trim($_POST['name'])) : '';
+        $phone = isset($_POST['phone']) ? htmlspecialchars(trim($_POST['phone'])) : '';
+        $email = isset($_POST['email']) ? htmlspecialchars(trim($_POST['email'])) : '';
+        $address = isset($_POST['address']) ? htmlspecialchars(trim($_POST['address'])) : '';
+        $message = isset($_POST['message']) ? htmlspecialchars(trim($_POST['message'])) : '';
+
+        // Validate fields
+        if (empty($name) || empty($phone) || empty($email) || empty($address) || empty($message)) {
+            echo "All fields are required!";
+        } else {
+            try {
+                // Create a new database connection
+                $database = new Database();
+                $conn = $database->getConnection();
+
+                // Prepare the SQL query
+                $query = "INSERT INTO feedback (name, phone, email, address, message, created_at) 
+                            VALUES (:name, :phone, :email, :address, :message, :created_at)";
+
+                $stmt = $conn->prepare($query);
+
+                // Bind the form data to the query
+                $stmt->bindParam(':name', $name);
+                $stmt->bindParam(':phone', $phone);
+                $stmt->bindParam(':email', $email);
+                $stmt->bindParam(':address', $address);
+                $stmt->bindParam(':message', $message);
+                $created_at = date('Y-m-d H:i:s'); // Get current timestamp
+                $stmt->bindParam(':created_at', $created_at);
+
+                // Execute the query
+                if ($stmt->execute()) {
+                    echo "Your feedback has been submitted successfully!";
+                } else {
+                    echo "Failed to submit feedback. Please try again.";
+                }
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+        }
+
 
 
         break;
