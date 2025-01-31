@@ -3,7 +3,7 @@
         <h4 class="text-center">Menu</h4>
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link text-white" href="dashboard.php">
+                <a class="nav-link text-white" href="http://localhost/fashion_shop/admin">
                     <i class="bi bi-house-fill me-2"></i> Dashboard
                 </a>
             </li>
@@ -23,7 +23,17 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white" href="reports.php">
+                <a class="nav-link text-white" href="http://localhost/fashion_shop/views/admin/products.php">
+                    <i class="bi bi-tags-fill me-2"></i> Products
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="http://localhost/fashion_shop/views/admin/blog.php">
+                    <i class="bi bi-tags-fill me-2"></i> Blogs
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="http://localhost/fashion_shop/sales">
                     <i class="bi bi-bar-chart-fill me-2"></i> Reports
                 </a>
             </li>

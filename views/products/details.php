@@ -95,15 +95,25 @@
 
         <div class="mt-3">
           <label>Quantity: <?php echo $product['stock_quantity'] ?></label>
-          <input type="number" class="form-control" value="1" style="width: 100px" />
+          <input type="number" class="form-control quantityInput" value="1" style="width: 100px" />
         </div>
         <?php if (!$product['stock_quantity'] <= 0): ?>
           <div class="mt-4">
+          <?php if(isset($_SESSION['user_id'])): ?>
             <button class="btn btn-primary">Add to Cart</button>
             <a href="http://localhost/fashion_shop/views/cart/checkout.php">
               <button class="btn btn-success ms-2">Checkout</button>
 
             </a>
+            <?php else:?>
+              <a href="http://localhost/fashion_shop/views/auth/login.php">
+              <button class="btn btn-success ms-2">Login</button>
+
+            </a>
+            <?php endif ;?>
+
+
+      
           </div>
         <?php else: ?>
           <span class="text-danger">Out of stock</span>
@@ -213,6 +223,18 @@
           selectedSize = this.textContent; // Update selected size
         });
       });
+
+      const quantityInput = document.querySelector(".quantityInput")
+
+      quantityInput.addEventListener('change',()=>{
+        console.log(quantityInput.value)
+        let value =quantityInput.value;
+        let stock = <?php echo $product['stock_quantity'] ?>;
+        console.log(stock)
+        if(value > stock){
+          quantityInput.value = stock;
+        }
+      })
 
       // Add to Cart button click event
       addToCartButton.addEventListener("click", function () {

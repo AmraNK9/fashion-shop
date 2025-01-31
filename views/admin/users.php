@@ -21,7 +21,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>
-                <th>Actions</th>
+                <!-- <th>Actions</th> -->
             </tr>
         </thead>
         <tbody>
@@ -31,10 +31,10 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <td><?php echo $user['name']; ?></td>
                     <td><?php echo $user['email']; ?></td>
                     <td><?php echo $user['role']; ?></td>
-                    <td>
+                    <!-- <td>
                         <a href="edit_user.php?id=<?php echo $user['user_id']; ?>" class="btn btn-primary btn-sm">Edit</a>
                         <a href="delete_user.php?id=<?php echo $user['user_id']; ?>" class="btn btn-danger btn-sm">Delete</a>
-                    </td>
+                    </td> -->
                 </tr>
             <?php endforeach; ?>
         </tbody>

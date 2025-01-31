@@ -3,7 +3,10 @@ include_once __DIR__.'/../../configs/database.php';
 include_once __DIR__.'/layout/header.php';
 include_once __DIR__.'/layout/sidebar.php';
 ?>
-
+    <?php if($_SESSION['user_role'] != 'admin' ){
+        header('Location: views/auth/login.php');
+        exit;
+    } ?>
 <div class="container mt-4">
     <h1>Admin Dashboard</h1>
     <div class="row mt-5">

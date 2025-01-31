@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <?php  ?>
     <h1>Sales Graph for <?php echo htmlspecialchars($_GET['date'] ?? date('Y-m-d')); ?></h1>
     <div style="width:30%">
         <canvas id="salesChart" width="200" height="100"></canvas>
