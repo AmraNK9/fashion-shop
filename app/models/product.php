@@ -38,6 +38,20 @@ class Product {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function search($data) {
+        $query = "SELECT * FROM fashion_product WHERE name LIKE '%$data%';";
+        $conn = new mysqli('localhost',  'root', '', 'fashion_shop');
+        $blogs = $conn->query($query);
+        $products = [];
+        while ($row = $blogs->fetch_assoc()) {
+            array_push($products,$row);
+        }
+
+        return  $products ;
+   
+    }
+
+
     // Create a new product
     public function createProduct($data) {
         $query = "INSERT INTO $this->tableName (name, description, price, category_id, gender_id, size_id, img, stock_quantity) 

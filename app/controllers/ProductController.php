@@ -33,6 +33,27 @@ class ProductController {
         //     # code...
         // }
         // echo $id;
+        
+        include __DIR__ . "/../../views/products/index.php";
+    }
+
+    
+    
+    public function search($query) {
+        $isFromSearch  = true;
+        $productModel = new Product();
+
+        $products = $productModel->search($query);
+        // echo "<br></br>";
+        // echo "<br></br>";
+        // echo "<pre>";
+        // var_dump($products);
+        // // echo $products;
+        // // for ($i=0; $i < ; $i++) { 
+        // //     # code...
+        // // }
+        // // echo $id;
+        // echo "</pre>";
         include __DIR__ . "/../../views/products/index.php";
     }
 
