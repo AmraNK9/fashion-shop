@@ -42,7 +42,7 @@
                     <a class="nav-link" href="settings.php">Settings</a>
                 </li> -->
                 <li class="nav-item">
-                    <a class="nav-link" href="logout.php">Logout</a>
+                    <a class="nav-link" href="/fashion_shop/log_out">Logout</a>
                 </li>
             </ul>
         </div>

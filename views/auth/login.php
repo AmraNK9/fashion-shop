@@ -8,47 +8,54 @@ include_once '../../app/controllers/AuthController.php';
 $authController = new AuthController();
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Capture form data
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+  // Capture form data
+  $email = $_POST['email'];
+  $password = $_POST['password'];
 
-    // Validate form data
-    if (!empty($email) && !empty($password)) { 
-        // Create a new database connection
-        $database = new Database();
-        $conn = $database->getConnection();
+  // Validate form data
+  if (!empty($email) && !empty($password)) {
+    // Create a new database connection
+    $database = new Database();
+    $conn = $database->getConnection();
 
-        // Prepare a select statement to verify user credentials
-        $query = "SELECT * FROM users WHERE email = :email";
-        $stmt = $conn->prepare($query);
-        $stmt->bindParam(':email', $email);
+    // Prepare a select statement to verify user credentials
+    $query = "SELECT * FROM users WHERE email = :email";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':email', $email);
 
-        // Execute the query
-        if ($stmt->execute()) {
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    // Execute the query
+    if ($stmt->execute()) {
+      $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            // var_dump($user);
-            // Verify password
-            if ($user && password_verify($password, $user['password'])) {
-            $authController->storeUser($user['user_id'],$user['name'],$user['role'],$user['email']);
-            header('Location:/fashion_shop');
+      // var_dump($user);
+      // Verify password
+      if ($user && password_verify($password, $user['password'])) {
+        $authController->storeUser($user['user_id'], $user['name'], $user['role'], $user['email']);
+        if ($user['role'] == "admin") {
+          header('Location:/fashion_shop/admin');
 
-                echo "<div class='alert alert-success'>Login successful! Welcome, " . htmlspecialchars(string: $user['name']) . ".</div>";
-
-            } else {
-                echo "<div class='alert alert-danger'>Invalid email or password.</div>";
-            }
         } else {
-            echo "<div class='alert alert-danger'>Error: Unable to process request. Please try again.</div>";
+          header('Location:/fashion_shop');
+
         }
+
+        echo "<div class='alert alert-success'>Login successful! Welcome, " . htmlspecialchars(string: $user['name']) . ".</div>";
+
+      } else {
+        echo "<div class='alert alert-danger'>Invalid email or password.</div>";
+      }
     } else {
-        echo "<div class='alert alert-warning'>Please fill out all fields.</div>";
+      echo "<div class='alert alert-danger'>Error: Unable to process request. Please try again.</div>";
     }
+  } else {
+    echo "<div class='alert alert-warning'>Please fill out all fields.</div>";
+  }
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,6 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     body {
       font-family: Arial, sans-serif;
     }
+
     .login-container {
       display: flex;
       justify-content: center;
@@ -66,27 +74,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       height: 100vh;
       background-color: #f8f9fa;
     }
+
     .login-card {
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       border: none;
     }
+
     .login-img {
       object-fit: cover;
       height: 100%;
     }
+
     .form-title {
       font-size: 1.5rem;
       font-weight: bold;
       margin-bottom: 20px;
     }
+
     .btn-custom {
       background-color: #000;
       color: #fff;
       font-weight: bold;
     }
+
     .btn-custom:hover {
       background-color: #333;
     }
+
     .logo {
       font-size: 2.5rem;
       font-weight: bold;
@@ -94,13 +108,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   </style>
 </head>
+
 <body>
   <div class="login-container">
     <div class="card login-card">
       <div class="row g-4">
         <!-- Left Image Section -->
         <div class="col-md-6">
-          <img src="../../public/images/d25ceb435dd1010018e0b90bf4d84422.jpg" alt="Login Image" class="img-fluid login-img">
+          <img src="../../public/images/d25ceb435dd1010018e0b90bf4d84422.jpg" alt="Login Image"
+            class="img-fluid login-img">
         </div>
         <!-- Right Form Section -->
         <div class="col-md-6 d-flex align-items-center">
@@ -118,6 +134,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               </div>
               <button type="submit" class="btn btn-custom w-100">Login</button>
             </form>
+            <div class="col-12 mb-3">
+              <p class="m-0 text-black text-center">Don't have an account? <a href="signup.php"
+                  class="link-primary text-decoration-none">Sign up</a></p>
+            </div>
           </div>
         </div>
       </div>
@@ -127,4 +147,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
